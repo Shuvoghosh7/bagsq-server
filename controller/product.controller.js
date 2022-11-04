@@ -1,4 +1,4 @@
-const { createProductService } = require("../services/product.service")
+const { createProductService, getProductService } = require("../services/product.service")
 
 exports.createProduct=async (req, res, next) => {
     try {
@@ -17,4 +17,19 @@ exports.createProduct=async (req, res, next) => {
         error : error.message
       })
     }  
+  }
+
+  exports.getProduct=async (req, res) => {
+    try {
+      //create method
+      const record=await getProductService();
+      res.send(record)
+    } catch (error) {
+      res.status(400).json({
+        stauts:"fail",
+        message: "Data is not found",
+        error : error.message
+      })
+  
+    }
   }
