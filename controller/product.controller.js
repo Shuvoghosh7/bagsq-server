@@ -1,4 +1,4 @@
-const { createProductService, getProductService } = require("../services/product.service")
+const { createProductService, getProductService, getProductByIdService } = require("../services/product.service")
 
 exports.createProduct=async (req, res, next) => {
     try {
@@ -32,4 +32,25 @@ exports.createProduct=async (req, res, next) => {
       })
   
     }
+  }
+
+  exports.getProductById=async (req, res, next) => {
+    const {id}=req.params;
+    try {
+      //create method
+      const product=await getProductByIdService(id);
+      if(!product){
+        return res.status(400).json({
+            stauts:"fail",
+            error : "Could not finds a brand with this id"
+          })
+      }
+      res.send(product)
+    } catch (error) {
+      res.status(400).json({
+        stauts:"fail",
+        message: "Data is not inserted",
+        error : error.message
+      })
+    }  
   }
