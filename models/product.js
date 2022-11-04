@@ -1,40 +1,37 @@
 const mongoose = require("mongoose");
-const validator = require('validator');
-const{ObjectId}=mongoose.Schema.Types
+
+
 const productSchema = mongoose.Schema({
-      email: {
+    userEmail: {
         type: String,
-        lowercase: true,
-        validate: [validator.isEmail, "Plese provide a valid Email"],
-        unique: true,
-        require: [true, "Email Address Require"],
+        require: true
     },
-    productName:{
+    productName: {
         type: String,
-        require:true
+        require: true
     },
-    description:{
+    description: {
         type: String,
-        require:true
+        require: true
     },
-    supplierName:{
+    supplierName: {
         type: String,
-        require:true
+        require: true
     },
-    price:{
+    price: {
         type: Number,
-        require:true
+        require: true
     },
-    quantity:{
+    quantity: {
         type: Number,
-        require:true
+        require: true
     },
-    imageUrl:{
+    imageUrl: {
         type: String,
-        require:true
+        require: true
     }
 })
 
 const Product = mongoose.model('Product', productSchema);
 
-module.exports=Product;
+module.exports = Product;
