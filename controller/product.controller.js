@@ -1,4 +1,4 @@
-const { createProductService, getProductService, getProductByIdService, updateProductService } = require("../services/product.service")
+const { createProductService, getProductService, getProductByIdService, updateProductService, deleteProductService } = require("../services/product.service")
 
 exports.createProduct = async (req, res, next) => {
   try {
@@ -73,11 +73,7 @@ exports.getProduct = async (req, res) => {
       queries.fields = fields
     }
     const product = await getProductService(filters, queries);
-    res.status(200).json({
-      stauts: "success",
-      massage: "successfully get data for all Product",
-      data: product
-    })
+    res.send(product)
   } catch (error) {
     res.status(400).json({
       stauts: "fail",
@@ -124,6 +120,31 @@ exports.updateProduct = async (req, res, next) => {
       error: error.message
     })
 
+  }
+
+}
+
+exports.deleteProduct=async(req,res,next)=>{
+  try {
+    const {id}=req.params;
+    const result=await deleteProductService(id)
+    if(!result.deletedCount){
+      return res.status({
+        stauts: "fail",
+        error: "Could not delete the product",
+      })
+    }
+    res.status(200).json({
+      stauts: "success",
+      massage: "Data delete successfully",
+    })
+    
+  } catch (error) {
+    res.status(400).json({
+      stauts:"fail",
+      message: "Product is not update",
+      error : error.message
+    })
   }
 
 }
