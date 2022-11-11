@@ -106,8 +106,14 @@ exports.getProductById = async (req, res, next) => {
 
 exports.updateProduct = async (req, res, next) => {
   const { id } = req.params;
+  const updatedQuantity = req.body.updatedQuantity;
+  const updateDoc = {
+    $set: {
+      quantity: updatedQuantity,
+    },
+  };
   try {
-    const result = await updateProductService(id, req.body);
+    const result = await updateProductService(id, updateDoc);
 
     res.status(200).json({
       stauts: "success",
